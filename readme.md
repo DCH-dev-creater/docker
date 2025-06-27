@@ -74,7 +74,7 @@ cd docker/
 ## 4 Настройка конфигурации
 <br>
 
-- 4.1 В файле *default.conf*, находящийся в папке *\config\nginx\conf.d*, находим директиву ***server_name*** и заменяем домен ***instagram.lern.dev*** на ваш домен приложения (***например: application.exemple.dev***)
+- 4.1 В файле *default.conf*, находящийся в папке *\config\nginx\conf.d*, находим директиву ***server_name*** и заменяем домен ***gadget.lern.dev*** на ваш домен приложения (***например: application.exemple.dev***)
 
 <br>
 
