@@ -53,7 +53,7 @@ services:
     expose:
       - '3000'
     depends_on:
-      - postgres
+      - postgres-learn
     networks:
       - dev
 
@@ -83,7 +83,7 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - postgres
+      - postgres-learn
     networks:
       - dev
 
