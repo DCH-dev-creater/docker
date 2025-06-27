@@ -46,7 +46,7 @@ services:
       context: ./config/nodejs
     tty: true
     command: >
-      sh -c "cd instagram/api
+      sh -c "cd gadget/api
       && npm install
       && npm run migrate
       && npm run dev"
@@ -101,8 +101,6 @@ services:
     environment:
       # Uncomment the following lines if you want to set custom credentials
       # Note: Ensure to set these variables in your .env file
-      # MINIO_ROOT_USER: minio
-      # MINIO_ROOT_PASSWORD: minio123
       # MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       # MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
