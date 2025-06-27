@@ -39,7 +39,7 @@
 
 - 2.2 В терминале выполняем команду клонирования репозитория
 ```
-git clone git@github.com:Zeonlb426/docker.git
+git clone git@github.com:DCH-dev-creater/docker.git
 ```
 <br>
 
