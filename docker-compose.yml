@@ -1,9 +1,14 @@
-version: "3.7"
+# 
+# To start the services, run: docker-compose up -d
+# To stop the services, run: docker-compose down
+#
+
+name: gadget  # Name of Docker group services
 services:
   # |**************************************************|
   # |------------------ Server NGINX ------------------|
-  nginx:
-    container_name: nginx-learn
+  nginx-gadget:
+    container_name: nginx-gadget
     image: nginx:latest
     volumes:
       - ./config/nginx/conf.d/:/etc/nginx/conf.d
@@ -14,20 +19,19 @@ services:
       - "80:80"
       - "443:443"
     depends_on:
-      - client
-      - api
+      - frontend
+      - backend
     networks:
       - dev
 
 
   # |**************************************************|
   # |------------ Server NodeJS (Frontend) ------------|
-  client:
-    container_name: client
+  frontend:
+    container_name: frontend
     build:
       context: ./config/nodejs
     tty: true
-    working_dir: /opt/server
     volumes:
       - ${PROJECT_DIR}:/opt/server
     env_file:
@@ -40,12 +44,11 @@ services:
 
   # |**************************************************|
   # |----------- Server NodeJS (API Backend) ----------|
-  api:
-    container_name: api
+  backend:
+    container_name: backend
     build:
       context: ./config/nodejs
     tty: true
-    working_dir: /opt/server
     volumes:
       - ${PROJECT_DIR}:/opt/server
     env_file:
@@ -53,15 +56,15 @@ services:
     expose:
       - '3000'
     depends_on:
-      - postgres-learn
+      - postgres-gadget
     networks:
       - dev
 
 
   # |**************************************************|
   # |------------ Server DataBase Postgres ------------|
-  postgres:
-    container_name: postgres-learn
+  postgres-gadget:
+    container_name: postgres-gadget
     image: postgres:latest
     restart: always
     volumes:
@@ -83,22 +86,19 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - postgres-learn
+      - postgres-gadget
     networks:
       - dev
 
   # |**************************************************|
   # |------------- Server Minio (AWS S3) --------------|
-  minio:
+  minio-gadget:
     image: minio/minio:latest
-    container_name: minio-learn
+    container_name: minio-gadget
     restart: always
     command: server /data --console-address ":9001"
     environment:
-      # Uncomment the following lines if you want to set custom credentials
       # Note: Ensure to set these variables in your .env file
-      # MINIO_ROOT_USER: ${MINIO_ROOT_USER}
-      # MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
     volumes:
@@ -158,7 +158,7 @@ services:
   #     - dev
 
   # |**************************************************|
-  # |------------------ Server RabbitMQ ----------------|
+  # |------------------ Server RabbitMQ ---------------|
   # rabbitmq:
   #   image: rabbitmq:3-management
   #   container_name: rabbitmq
@@ -173,8 +173,21 @@ services:
 
 
   # |**************************************************|
-  # |------------------ Server Networks ----------------|
-
+  # |------------------ Server Networks ---------------|
 networks:
   dev:
+    name: dev
     driver: bridge
+
+
+# This is a Docker Compose file for setting up a development environment with various services.
+# It includes services for NGINX, Node.js frontend and backend, PostgreSQL, Adminer, Minio (AWS S3), and optional services like MySQL, MongoDB, Redis, and RabbitMQ.
+# The services are connected to a custom network named 'dev' and use volumes for persistent data storage.
+# The environment variables for sensitive data like passwords and user credentials are expected to be defined in a separate .env file. 
+# The file is structured to allow easy addition or removal of services as needed for the development workflow.
+# Note: Uncomment the MySQL, MongoDB, Redis, and RabbitMQ sections if you need those services.
+# Ensure to set the necessary environment variables in your .env file before running the Docker Compose command.
+# To start the services, run: docker-compose up -d
+# To stop the services, run: docker-compose down
+# This file is designed to be used in a development environment and may require adjustments for production use
+# Ensure to check the configurations and security settings before deploying in a production environment.
