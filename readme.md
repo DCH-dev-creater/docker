@@ -74,7 +74,7 @@ cd docker/
 ## 4 Настройка конфигурации
 <br>
 
-- 4.1 В файле *default.conf*, находящийся в папке *\config\nginx\conf.d*, находим директиву ***server_name*** и заменяем домен ***gadget.lern.dev*** на ваш домен приложения (***например: application.exemple.dev***)
+- 4.1 В файле *default.conf*, находящийся в папке *\config\nginx\conf.d*, находим директиву ***server_name*** и заменяем домен ***application.exemple.dev*** на ваш домен приложения (***например: gadget.lern.dev***)
 
 <br>
 
@@ -99,7 +99,7 @@ cd docker/
 - 4.4 Создаем в папке с вашими проектами папку, где будет находиться код вашего приложения
 <br>
 
-- 4.5 Создаем в папке вашего проекта две подпапки: api и app, в папке api будет находиться код для api-сервера, в папке app соответственно код для frontend
+- 4.5 Создаем в папке вашего проекта две подпапки: backend и frontend, в папке backend будет находиться код для backend-сервера, в папке frontend соответственно код для frontend
 <br>
 <br>
 
@@ -120,9 +120,9 @@ docker-compose up --build -d
 
 <br>
 
-- 5.3 Заходим внутрь контейнера **client** c node.js
+- 5.3 Заходим внутрь контейнера **backend** c node.js
 ```
-docker-compose exec client sh
+docker-compose exec backend sh
 ```
 <br>
 
@@ -131,15 +131,15 @@ docker-compose exec client sh
 /opt/server #
 ```
 
-- 5.4 Переходим в проект, в папку ***app*** с помощю команды ***cd***
+- 5.4 Переходим в проект, в папку ***frontend*** с помощю команды ***cd***
 ```
-cd project_dir/app/
+cd project_dir/frontend/
 ```
 где project_dir - папка с вашим проектом
 
 <br>
 
-- 5.5 Находясь в папке ***app*** вашего проекта, запускаем команду установки Next.js
+- 5.5 Находясь в папке ***frontend*** вашего проекта, запускаем команду установки Next.js
 ```
 npx create-next-app@latest .
 ```
